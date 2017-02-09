@@ -2,10 +2,31 @@
 
 > gpa_v2
 
-## server
 
+## 安装
+
+### 编译安装
 ```
-端口：6627
+go install https://github.com/mohuishou/gpa-v2
+```
+
+### 下载对应的二进制包
+
+**拷贝一份config.json.example为config.json 并将其与程序放置在同一目录下**
+
+## config
+
+```json
+{
+    "port":"1234", 
+    "headers":{
+        "Access-Control-Allow-Origin":"*"
+    }
+}
+```
+```
+port: 端口值
+headers: 设置header参数，键值对
 ```
 
 ## 获取本学期成绩
