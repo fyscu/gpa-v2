@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/goless/config"
 	"github.com/mohuishou/scujwc-go"
 
 	"encoding/json"
@@ -15,8 +16,6 @@ import (
 	"net/url"
 	"strconv"
 )
-
-var signKey = []byte("fyscu_gpa_v2")
 
 func login(w http.ResponseWriter, r *http.Request) (scujwc.Jwc, error) {
 	var s scujwc.Jwc
@@ -87,11 +86,16 @@ func main() {
 	http.HandleFunc("/gpa/all", gpaAll)
 	http.HandleFunc("/gpa/not-pass", gpaNotPass)
 
-	if err := http.ListenAndServe("0.0.0.0:6627", nil); err != nil {
-		log.Fatal("ListenAndServe: ", err)
-	} else {
-		fmt.Println("服务启动成功...端口：6627")
+	//读取配置文件，设置端口
+	config := config.New("config.json")
+	ports := config.Get("port")
+	port, ok := ports.(string)
+	if ok == false {
+		log.Fatal("端口配置读取出错，请使用\"port\":\"123\" 形式表示端口号 ")
+	}
 
+	if err := http.ListenAndServe("0.0.0.0:"+port, nil); err != nil {
+		log.Fatal("ListenAndServe: ", err)
 	}
 }
 
@@ -110,6 +114,24 @@ func errorRetrun(w http.ResponseWriter, e error, data interface{}) {
 }
 
 func jsonReturn(w http.ResponseWriter, status int, msg string, data interface{}) {
+
+	//读取配置文件，设置header
+	config := config.New("config.json")
+	headers := config.Get("headers")
+	header, ok := headers.(map[string]interface{})
+	if ok == true {
+		for k, v := range header {
+			val, ok := v.(string)
+			if ok == false {
+				log.Println("header配置读取出错")
+			}
+			w.Header().Set(k, val)
+		}
+	} else {
+		log.Println("header配置读取出错")
+
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	d := jsonData{
 		Status: status,

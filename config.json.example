@@ -1,0 +1,6 @@
+{
+    "port":"1234",
+    "headers":{
+        "Access-Control-Allow-Origin":"*"
+    }
+}
