@@ -1,0 +1,22 @@
+hash: 8f7da0afe42babd474747b3ffee7881f84d0c10f91a69c2b7979a917909bb5ea
+updated: 2017-02-25T19:45:44.1114917+08:00
+imports:
+- name: github.com/andybalholm/cascadia
+  version: 349dd0209470eabd9514242c688c403c0926d266
+- name: github.com/goless/config
+  version: 4a75af734f1d4b753e4edf282c868b68e850e205
+- name: github.com/jordic/goics
+  version: 482aa91d823471674f535b8a0f2dbfffd9c3585f
+- name: github.com/mohuishou/scujwc-go
+  version: 8d54db59b52094aa3d12f012831e8a4c5babf196
+- name: github.com/PuerkitoBio/goquery
+  version: e1271ee34c6a305e38566ecd27ae374944907ee9
+- name: github.com/qiniu/iconv
+  version: 95b6ba6f738637e4699b12cce9fad646e8bd9f24
+- name: golang.org/x/net
+  version: 10c134ea0df15f7e34d789338c7a2d76cc7a3ab9
+  repo: https://github.com/golang/net
+  subpackages:
+  - html
+  - html/atom
+testImports: []

@@ -1,0 +1,5 @@
+package: github.com/mohuishou/gpa
+import:
+- package: github.com/goless/config
+- package: github.com/mohuishou/scujwc-go
+  version: ~0.1.4
