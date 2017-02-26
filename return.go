@@ -38,7 +38,6 @@ func jsonReturn(w http.ResponseWriter, status int, msg string, data interface{})
 		log.Println("header配置读取出错")
 
 	}
-
 	w.Header().Set("Content-Type", "application/json")
 	d := jsonData{
 		Status: status,
