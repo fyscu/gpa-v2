@@ -8,25 +8,16 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/goless/config"
 	scujwc "github.com/mohuishou/scujwc-go"
 )
 
-var conf config.Config
-
 func main() {
+	// http.Handle("/", http.FileServer(http.Dir("/tmp/static/")))
 	http.HandleFunc("/gpa", gpa)
 	http.HandleFunc("/gpa/all", gpaAll)
 	http.HandleFunc("/gpa/not-pass", gpaNotPass)
 
-	//读取配置文件，设置端口
-	config := config.New("config.json")
-	conf = config
-	ports := conf.Get("port")
-	port, ok := ports.(string)
-	if ok == false {
-		log.Fatal("端口配置读取出错，请使用\"port\":\"123\" 形式表示端口号 ")
-	}
+	port := "6777"
 
 	if err := http.ListenAndServe("0.0.0.0:"+port, nil); err != nil {
 		log.Fatal("ListenAndServe: ", err)
