@@ -2,6 +2,8 @@ package main
 
 import (
 	"errors"
+	"flag"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -12,14 +14,18 @@ import (
 )
 
 func main() {
-	// http.Handle("/", http.FileServer(http.Dir("/tmp/static/")))
+	port := flag.String("p", "6777", "请输入需要绑定的端口号")
+	dist := flag.String("d", "dist/", "请输入前端目录路径")
+	flag.Parse()
+
+	log.Printf("即将监听端口: %s", *port)
+
+	http.Handle("/", http.FileServer(http.Dir(*dist)))
 	http.HandleFunc("/gpa", gpa)
 	http.HandleFunc("/gpa/all", gpaAll)
 	http.HandleFunc("/gpa/not-pass", gpaNotPass)
 
-	port := "6777"
-
-	if err := http.ListenAndServe("0.0.0.0:"+port, nil); err != nil {
+	if err := http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", *port), nil); err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
 }
