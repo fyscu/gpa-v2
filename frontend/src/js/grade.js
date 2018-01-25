@@ -122,6 +122,9 @@ function calTermGrade(grades) {
       obj.gradeCal = lv2grade(obj.grade);
       obj.gpa = grade2gpa(obj.gradeCal);
       obj.credit = obj.credit - 0;
+      if (obj.grade==""){
+        return obj
+      }
       if (obj.course_type == "必修") {
         sum.required.grade += obj.gradeCal * obj.credit;
         sum.required.credit += obj.credit;
