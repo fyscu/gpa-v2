@@ -44,7 +44,7 @@ func login(w http.ResponseWriter, r *http.Request) (scujwc.Jwc, error) {
 	if err != nil {
 		return s, err
 	}
-	password := v.Get("password")
+	password := url.QueryEscape(v.Get("password"))
 	s, err = scujwc.NewJwc(uid, password)
 	if err != nil {
 		return s, err
