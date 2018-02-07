@@ -1,0 +1,26 @@
+hash: bc2314c83ca4edaec7ad888f1926a00c1aa5d2ea5e4f8dbf0057ce1719614191
+updated: 2018-01-25T23:14:46.25760172+08:00
+imports:
+- name: github.com/andybalholm/cascadia
+  version: 349dd0209470eabd9514242c688c403c0926d266
+- name: github.com/jordic/goics
+  version: 826350cb6414a8014639473fb7e2db255fd1713c
+- name: github.com/mohuishou/scujwc-go
+  version: 89e2dde6d42d8f6497ac669d8c41928d2096c80b
+- name: github.com/PuerkitoBio/goquery
+  version: e1271ee34c6a305e38566ecd27ae374944907ee9
+- name: golang.org/x/net
+  version: 0ed95abb35c445290478a5348a7b38bb154135fd
+  repo: https://github.com/golang/net
+  subpackages:
+  - html
+  - html/atom
+- name: golang.org/x/text
+  version: e19ae1496984b1c655b8044a65c0300a3c878dd3
+  subpackages:
+  - encoding
+  - encoding/internal
+  - encoding/internal/identifier
+  - encoding/simplifiedchinese
+  - transform
+testImports: []

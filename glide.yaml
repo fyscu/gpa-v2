@@ -1,0 +1,4 @@
+package: github.com/mohuishou/gpa-v2
+import:
+- package: github.com/mohuishou/scujwc-go
+  branch: master
