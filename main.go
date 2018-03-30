@@ -40,10 +40,7 @@ func login(w http.ResponseWriter, r *http.Request) (scujwc.Jwc, error) {
 	if err != nil {
 		return s, err
 	}
-	uid, err := strconv.Atoi(v.Get("uid"))
-	if err != nil {
-		return s, err
-	}
+	uid := url.QueryEscape(v.Get("uid"))
 	password := url.QueryEscape(v.Get("password"))
 	s, err = scujwc.NewJwc(uid, password)
 	if err != nil {
