@@ -29,14 +29,14 @@ const (
 
 //Jwc 教务处相关操作
 type Jwc struct {
-	uid      int
+	uid      string
 	password string
 	client   http.Client
 	isLogin  int //登录判断 1：已登录，0：尚未登录
 }
 
 //NewJwc 新建并初始化一个教务处对象
-func NewJwc(uid int, password string) (j Jwc, err error) {
+func NewJwc(uid string, password string) (j Jwc, err error) {
 	j.password = password
 	j.uid = uid
 	j.initHTTP()
@@ -58,7 +58,7 @@ func (j *Jwc) initHTTP() {
 func (j *Jwc) login() (err error) {
 
 	url := DOMAIN + "/loginAction.do"
-	param := "zjh=" + strconv.Itoa(j.uid) + "&mm=" + j.password
+	param := "zjh=" + j.uid + "&mm=" + j.password
 
 	doc, err := j.post(url, param)
 	if err != nil {

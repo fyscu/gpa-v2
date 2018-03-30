@@ -21,7 +21,7 @@ func main() {
 	log.Printf("即将监听端口: %s", *port)
 
 	http.Handle("/", http.FileServer(http.Dir(*dist)))
-	http.HandleFunc("/gpa", gpa)
+	http.HandleFunc("/gpa", gpaAll)
 	http.HandleFunc("/gpa/all", gpaAll)
 	http.HandleFunc("/gpa/not-pass", gpaNotPass)
 

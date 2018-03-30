@@ -75,6 +75,11 @@ func (g Grades) getGPAAll(j *Jwc) ([][]Grades, error) {
 		grade := g.get(j, sel)
 		grades = append(grades, grade)
 	})
+	for index, element := range grades {
+		if len(element) == 0 {
+			grades = append(grades[:index],grades[index+1:]...)
+		}
+	}
 	return grades, nil
 }
 
