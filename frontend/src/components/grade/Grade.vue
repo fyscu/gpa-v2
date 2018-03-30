@@ -17,15 +17,13 @@
     <div v-if="isLogin" id="grade">
       <div>
         <mu-tabs class="grade-tabs" :value="activeTab" @change="switchTab">
-          <mu-tab value="0" title="本学期成绩"></mu-tab>
           <mu-tab value="1" title="所有成绩" @click="getGradeAll"></mu-tab>
           <mu-tab value="2" title="不及格成绩" @click="getNotPass"></mu-tab>
         </mu-tabs>
       </div>
-      <my-grade v-show="activeTab==0" :isHead=true :grade="grade" title="本学期成绩"></my-grade>
       <my-grade v-show="activeTab==1" :isHead=true :grade="grade" :title="grade.grades[0].term_name" v-for="(grade,index) in gradeAll" :key="index"></my-grade>
-      <my-grade v-show="activeTab!=0" :isHead=false :grade="notPass[0]" title="尚不及格"></my-grade>
-      <my-grade v-show="activeTab!=0" :isHead=false :grade="notPass[1]" title="曾不及格"></my-grade>
+      <my-grade v-show="true" :isHead=false :grade="notPass[0]" title="尚不及格"></my-grade>
+      <my-grade v-show="true" :isHead=false :grade="notPass[1]" title="曾不及格"></my-grade>
       <mu-bottom-nav class="bottom" :value="bottomData" @change="handleChange">
         <mu-bottom-nav-item value="cal" title="计算" @click.native="calculation" icon=":icon-CombinedShape" iconClass="iconfont"></mu-bottom-nav-item>
         <mu-bottom-nav-item value="required" title="必修" @click.native="chooseRequire" icon=":icon-zhuanyebixiuke" iconClass="iconfont"></mu-bottom-nav-item>
@@ -53,8 +51,7 @@
       {{errorText}}
       <br />
       <p style="background: #eee;padding: 15px;">
-        注：如果遇到网络问题，请先测试能否直接打开教务处网站->方案成绩->本学期成绩 如果没有问题请发送邮件到
-        <a href="mailto:1@lailin.xyz">1@lailin.xyz</a>
+        注：如果遇到网络问题，请先测试能否直接打开教务处网站->方案成绩->本学期成绩，如果没有问题请在微信公号反馈
       </p>
       <mu-flat-button slot="actions" primary @click="closeCal" label="确定"></mu-flat-button>
     </mu-dialog>
@@ -65,8 +62,7 @@
       </p>
       <p>最新成绩绩点对照表：</p>
       <img style="max-width:100%;" src="../../assets/1.png" alt="成绩对照表">
-      <p>说明：中文等级暂时按照对应分数段最高的计算，如果有最新的更加详细的对照表请发送邮件
-        <a href="mailto:1@lailin.xyz">1@lailin.xyz</a>
+      <p>说明：中文等级暂时按照对应分数段最高的计算，如果有最新的更加详细的对照表请在微信公号反馈
       </p>
       <mu-flat-button slot="actions" primary @click="closeCal" label="确定"></mu-flat-button>
     </mu-dialog>
@@ -163,7 +159,7 @@
         isLoading: false,
         isLogin: false,
         bottomData: 'cal',
-        activeTab: "0",
+        activeTab: "1",
         gradeAll: {},
         grade: gradeTest,
         dialogCal: false,
@@ -217,7 +213,7 @@
           this.valid.password = "密码必填"
           return
         }
-        this.getGrade();
+        this.getGradeAll();
       },
       /**
        * 关闭计算窗口
@@ -237,9 +233,6 @@
        * 获取所有成绩
        */
       getGradeAll() {
-        if (this.check.gpaAll != 0) {
-          return
-        }
         this.http.post("/gpa/all", this.params).then(
           resp => {
             if (resp.data.status == 1) {
